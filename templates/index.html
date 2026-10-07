@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My To-Do List Website</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px auto; max-width: 500px; text-align: center; }
+        form { margin-bottom: 20px; }
+        input[type="text"] { padding: 10px; width: 70%; font-size: 16px; }
+        button { padding: 10px; font-size: 16px; cursor: pointer; }
+        ul { list-style-type: none; padding: 0; }
+        li { padding: 10px; background: #f4f4f4; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; text-align: left; }
+        .delete-btn { color: red; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h1>📝 To-Do List App</h1>
+
+    <!-- Form to add tasks via POST request -->
+    <form action="/add" method="POST">
+        <input type="text" name="title" placeholder="Enter a new task..." required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <!-- Displaying the list of tasks queried from the database -->
+    <ul>
+        {% for task in tasks %}
+            <li>
+                <span>{{ task[1] }}</span>
+                <!-- Links back to Python's delete route passing the SQL row ID -->
+                <a class="delete-btn" href="/delete/{{ task[0] }}">X</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
